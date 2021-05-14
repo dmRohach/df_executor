@@ -15,7 +15,7 @@ class Executor:
         elif inode:
             command = InodeExecutor()
         else:
-            command = Executor()
+            command = cls()
         return command
 
     def make_result(self):
