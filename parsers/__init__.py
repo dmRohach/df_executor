@@ -30,3 +30,6 @@ class BaseParsing:
                 "result": None
             }
         print(json.dumps(final, sort_keys=True, indent=4))
+
+
+from .rising_error_argparse import *

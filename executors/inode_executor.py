@@ -1,4 +1,4 @@
-from .__init__ import Executor
+from . import Executor
 
 
 class InodeExecutor(Executor):

@@ -1,6 +1,16 @@
 import subprocess
 
 
+def create_executor(human=None, inode=None):
+    if human:
+        command = HumanExecutor()
+    elif inode:
+        command = InodeExecutor()
+    else:
+        command = Executor()
+    return command
+
+
 class Executor:
     def __init__(self):
         self._terminal = 'df'
@@ -15,3 +25,4 @@ class Executor:
 
 from .human_executor import *
 from .inode_executor import *
+

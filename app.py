@@ -1,29 +1,17 @@
 import argparse
 
-from parsers import BaseParsing
-from executors import Executor, HumanExecutor, InodeExecutor
+from parsers import BaseParsing, RisingErrorArgparse
+from executors import *
 
 
-# removes the error output
-class NewParser(argparse.ArgumentParser):
-
-    def error(self, message):
-        raise Exception(message)
-
-
-parser = NewParser()
+parser = RisingErrorArgparse()
 group = parser.add_mutually_exclusive_group()
 group.add_argument('--human', action='store_true', default=None)
 group.add_argument('--inode', action='store_true', default=None)
 
 try:
     args = parser.parse_args()
-    if args.human:
-        command = HumanExecutor()
-    elif args.inode:
-        command = InodeExecutor()
-    else:
-        command = Executor()
+    command = create_executor(inode=args.inode)
     command.make_result()
     result = BaseParsing(command.result, command.keys)
     result.print_json()
