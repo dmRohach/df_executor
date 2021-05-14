@@ -11,7 +11,7 @@ group.add_argument('--inode', action='store_true', default=None)
 
 try:
     args = parser.parse_args()
-    command = Executor.create_executor(inode=args.inode)
+    command = Executor.create_executor(human=args.human, inode=args.inode)
     command.make_result()
     result = BaseParsing(command.result, command.keys)
     result.print_json()
