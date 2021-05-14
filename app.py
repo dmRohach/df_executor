@@ -4,10 +4,11 @@ from parsers import BaseParsing, RisingErrorArgparse
 from executors import *
 
 
-parser = RisingErrorArgparse()
+parser = argparse.ArgumentParser()
 group = parser.add_mutually_exclusive_group()
 group.add_argument('--human', action='store_true', default=None)
 group.add_argument('--inode', action='store_true', default=None)
+
 
 try:
     args = parser.parse_args()

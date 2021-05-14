@@ -3,8 +3,8 @@ import subprocess
 
 class Executor:
     def __init__(self):
-        self.__terminal = 'df'
-        self.keys = ['Filesystem', '1K-blocks', 'Used', 'Available', 'Use%', 'Mounted on']
+        self._terminal = None
+        self.keys = None
         self.error = None
         self.result = None
 
@@ -15,14 +15,15 @@ class Executor:
         elif inode:
             executor = InodeExecutor()
         else:
-            executor = cls()
+            executor = DfExecutor()
         return executor
 
     def make_result(self):
-        _command = subprocess.Popen(self.__terminal, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
+        _command = subprocess.Popen(self._terminal, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
         self.result, self.error = [item.decode("utf-8") for item in _command]
 
 
 from .human_executor import *
 from .inode_executor import *
+from .df_executor import *
 
