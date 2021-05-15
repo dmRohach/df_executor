@@ -1,10 +1,11 @@
 import json
+from executors import *
 
 
 class BaseParsing:
-    def __init__(self, result, keys, error=None):
+    def __init__(self, result, error=None):
         self.error = error
-        self.keys = keys
+        self.keys = None
         self.result = result
 
     def __make_result(self):
@@ -31,5 +32,18 @@ class BaseParsing:
             }
         print(json.dumps(final, sort_keys=True, indent=4))
 
+    @staticmethod
+    def create_parser(executor, result):
+        if isinstance(executor, HumanExecutor):
+            parser = HumanParser(result)
+        elif isinstance(executor, InodeExecutor):
+            parser = InodeParser(result)
+        else:
+            parser = DfParser(result)
+        return parser
+
 
 from .rising_error_argparse import *
+from .inode_parser import *
+from .human_parser import *
+from .df_parser import *

@@ -8,8 +8,8 @@ class Executor:
         self.error = None
         self.result = None
 
-    @classmethod
-    def create_executor(cls, human=None, inode=None):
+    @staticmethod
+    def create_executor(human=None, inode=None):
         if human:
             executor = HumanExecutor()
         elif inode:
